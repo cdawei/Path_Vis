@@ -1,5 +1,6 @@
 #!/usr/bin/python
-from http.server import BaseHTTPRequestHandler,HTTPServer
+from http.server import BaseHTTPRequestHandler, HTTPServer
+import socketserver
 from os import curdir, sep
 import sys, cgi, os, json
 import numpy as np
@@ -174,18 +175,17 @@ class dummyHandler(BaseHTTPRequestHandler):
             return
 
         except IOError:
-            self.send_error(404,'File Not Found: %s' % self.path)
-
+            self.send_error(404, 'File Not Found: %s' % self.path)
 
     # POST requests handler
     def do_POST(self):
         print('in do_POST()')
-        if self.path=="/recommend":
+        if self.path == "/recommend":
             formData = cgi.FieldStorage(
                 fp=self.rfile,
                 headers=self.headers,
-                environ={'REQUEST_METHOD':'POST',
-                         'CONTENT_TYPE':self.headers['Content-Type'],
+                environ={'REQUEST_METHOD': 'POST',
+                         'CONTENT_TYPE': self.headers['Content-Type'],
             })
             start = int(formData["START"].value)
             length = int(formData["LENGTH"].value)
@@ -197,6 +197,11 @@ class dummyHandler(BaseHTTPRequestHandler):
             self.wfile.write(output.encode('utf-8'))
             return
 
+
+class ThreadingSimpleServer(socketserver.ThreadingMixIn, HTTPServer):
+    pass
+
+
 def check_system():
     if sys.platform == "darwin":
         if not os.path.exists("./lib/inference_lv_linux.so"):
@@ -205,12 +210,14 @@ def check_system():
     elif sys.platform == "win32":
         raise OSError("does not support Windows systems")
 
+
 if __name__ == '__main__':
     check_system()
     try:
         # Create a web server and define the handler
         PORT = 8080
-        server = HTTPServer(('', PORT), dummyHandler)
+        # server = HTTPServer(('', PORT), dummyHandler)
+        server = ThreadingSimpleServer(('', PORT), dummyHandler)
         print('Started local httpserver on port %d' % PORT)
 
         # Waiting for incoming http requests
