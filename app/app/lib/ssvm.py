@@ -157,7 +157,7 @@ class SSVM:
             item['POIFeatureScore'] = poi_feature_score
             item['TransitionFeatureScore'] = trans_feature_score
             item['POIPerFeatureScore'] = poi_perfeature_score
-            
+
             if self.share_params is True:
                 item['POIFeatureWeight'] = unary_params[y_hat[0]]
                 item['TransitionFeatureWeight'] = pw_params[y_hat[0], y_hat[1]]
