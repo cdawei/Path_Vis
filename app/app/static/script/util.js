@@ -1,5 +1,5 @@
 var map = undefined;
-var fpoi = 'https://cdn.rawgit.com/cdawei/path_vis/master/data/poi-Melb-all.csv';
+var fpoi = 'https://cdn.rawgit.com/cdawei/path_vis/master/app/app/data/poi-Melb-all.csv';
 var colors = ["3f51b5", "f44336","ff9800","ffc107","cddc39","8bc34a","009688","e91e63","9c27b0","03a9f4"]
 var selected_color = colors[0];
 var default_color = "f0f0f0";
