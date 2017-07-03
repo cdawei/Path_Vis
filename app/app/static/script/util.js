@@ -146,8 +146,8 @@ function draw_route(traj, color, travel_mode="walking") {
             origin: [ ps["lat"], ps["lng"] ],
             destination: [ pt["lat"], pt["lng"] ],
             waypoints: waypts,
-            optimizeWaypoints: false, //do NOT allow way points to be reordered
-            //optimizeWaypoints: true, //allow way points to be reordered: might be better visually.
+            //optimizeWaypoints: false, //do NOT allow way points to be reordered
+            optimizeWaypoints: true, //allow way points to be reordered: might be better visually.
             travelMode: travel_mode,
             strokeColor: color, //RRGGBB, e.g. '#1F5566', '#131540'
             strokeOpacity: 0.6,
