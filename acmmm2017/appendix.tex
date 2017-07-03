@@ -1,0 +1,21 @@
+\appendix
+%{\Large\bf Supplementary material to \emph{PathRec: Visual Analysis of Travel Route Recommendations}}
+
+\section{Alternative approaches to trajectory recommendation}
+\label{sec:alternative}
+
+A number of approaches have been proposed to solve the trajectory recommendation problem.
+\citet{ijcai15} formulated an optimisation problem inspired by the travelling salesman problem,
+and \citet{cikm16paper} proposed to learn a RankSVM~\cite{lranksvm} model to rank POIs with respect to a query,
+in particular, 
+the training objective is
+\begin{equation*}
+\resizebox{\linewidth}{!}{$\displaystyle
+\min_{\mathbf{w}} \frac{1}{2} \mathbf{w}^\top \mathbf{w} + C \cdot \sum_{i=1}^n \sum_{(p,p') \in \mathcal{R}(\mathbf{x}^{(i)})}
+          \max\left(0, 1 - \mathbf{w}^\top \left(\Phi(\mathbf{x}^{(i)}, p) - \Phi(\mathbf{x}^{(i)}, p') \right) \right)^2,
+$}
+\end{equation*}
+where $\mathbf{w}$ denotes the model parameters, $\Phi$ is a query-POI feature mapping, $C > 0$ is a regularisation constant,
+and $\mathcal{R}(\mathbf{x})$ is the set of POI pairs $(p, p')$ such that $p$ is ranked above $p'$,
+e.g. POI $p$ is observed more often than POI $p'$, with respect to query $\mathbf{x}$.
+Lastly, the top-ranked POIs with respect to the given query were taken to form a trajectory.
