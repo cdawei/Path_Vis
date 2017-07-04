@@ -142,6 +142,7 @@ function draw_route(traj, color, travel_mode="walking") {
         }
         draw_POIs();
 
+        // draw route on map
         map.drawRoute({
             origin: [ ps["lat"], ps["lng"] ],
             destination: [ pt["lat"], pt["lng"] ],
@@ -154,6 +155,25 @@ function draw_route(traj, color, travel_mode="walking") {
             strokeWeight: 6,
             fillColor: "#0000FF",
             fillOpacity: 0.4
+        });
+
+        // travel time and distance of this route
+        map.getRoutes({
+            origin: [ ps["lat"], ps["lng"] ],
+            destination: [ pt["lat"], pt["lng"] ],
+            waypoints: waypts,
+            //optimizeWaypoints: false, //do NOT allow way points to be reordered
+            optimizeWaypoints: true, //allow way points to be reordered: might be better visually.
+            travelMode: travel_mode,
+            callback: function (e) {
+                var total_time = 0;
+                var total_distance = 0;
+                for (var i = 0; i < e[0].legs.length; i++) {
+                    total_time += e[0].legs[i].duration.value;
+                    total_distance += e[0].legs[i].distance.value;
+                }
+                console.log("Time: " + total_time + ", " + "Distance: " + total_distance); //visualise (time,distance) somewhere?
+            }
         });
     });
     console.log('trajectory: ' + traj);

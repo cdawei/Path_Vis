@@ -34,7 +34,7 @@ function draw_chart(ind, trajdata) {
 		for (var k = 0; k < trajdata[ind]['POIPerFeatureScore'].length; k++) {
 				entry = [];
 				for (var j = 0; j < labels.length; j++) {
-						entry.push({ axis:labels[j], value:trajdata[ind]['POIPerFeatureScore'][k][j]+5 });
+						entry.push({ axis:labels[j], value:trajdata[ind]['POIPerFeatureScore'][k][j] });
 				}
 				console.log(entry);
 				legends.push('p'+k.toString());
