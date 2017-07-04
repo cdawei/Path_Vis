@@ -172,7 +172,7 @@ function draw_route(traj, color, travel_mode="walking") {
                     total_time += e[0].legs[i].duration.value;
                     total_distance += e[0].legs[i].distance.value;
                 }
-                console.log("Time: " + total_time + ", " + "Distance: " + total_distance); //visualise (time,distance) somewhere?
+                console.log("Time: " + total_time + " seconds, " + "Distance: " + total_distance + ' meters'); //visualise (time,distance) somewhere?
             }
         });
     });
