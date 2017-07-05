@@ -18,35 +18,31 @@ def recommend(request):
 
 class dummyHandler():
     def preprocess(self, recommendations):
-        # scale scores and convert arrays to lists
-        scores_traj = [x['TotalScore'] for x in recommendations]
-        score_max = np.max(scores_traj)
-        score_min = np.min(scores_traj)
-        assert(abs(score_max) > 1e-9)
-        assert(abs(score_min) > 1e-9)
-        assert(score_max > score_min)
-
         # linear scaling of trajectory scores
         # a * score_max + b = 100
         # a * score_min + b = 10
+        score_max = recommendations[0]['TotalScore']
+        score_min = recommendations[-1]['TotalScore']
+        assert(abs(score_max) > 1e-9)
+        assert(abs(score_min) > 1e-9)
+        assert(score_max > score_min)
         a = np.exp(np.log(90) - np.log(score_max - score_min))
         b = 100 - a * score_max
         #print(a, b)
 
         # linear scaling of POI feature scores
         # there is a vector of feature scores for each POI in each recommended trajectory
+        # a1 * score_max_feature + b1 = 10
+        # a1 * score_min_feature + b1 = 1
         scores_feature = [x for z in recommendations for y in z['POIPerFeatureScore'] for x in y]  
         score_max_feature = np.max(scores_feature)
         score_min_feature = np.min(scores_feature)
         assert(abs(score_max_feature) > 1e-9)
-        #assert(abs(score_min_feature) > 1e-9)
         assert(score_max_feature > score_min_feature)
-        # a1 * score_max_feature + b1 = 10
-        # a1 * score_min_feature + b1 = 1
         a1 = np.exp(np.log(9) - np.log(score_max_feature - score_min_feature))
         b1 = 10 - a1 * score_max_feature
-        #print(a1, b1)
-        
+        #print(a2, b2)
+
         for j in range(len(recommendations)):
             rec = recommendations[j]
             score0 = rec['TotalScore']
@@ -57,11 +53,11 @@ class dummyHandler():
                 score1 = 10
             else:
                 score1 = a * rec['TotalScore'] + b
-
-            print('scaled score:', score1)
             assert(score1 > 9)
             assert(score1 < 101)
             recommendations[j]['TotalScore'] = score1
+            assert(abs(score0) > 1e-9)
+            ratio = np.exp(np.log(score1) - np.log(score0))
 
             # Both recommendations[j]['POIFeatureScore'] and recommendations[j]['POIFeatureWeight'] are 24-dimention vectors,
             # and the correspondence between POI features (and feature weights) and elements in these two vectors are:
@@ -90,20 +86,16 @@ class dummyHandler():
             # 4        neighbourhood (transition probability according to the neighbourhood of POI)
 
             # recommendations[j]['POIPerFeatureScore'][k] is a vector of (feature) scores of the k-th POI in the j-th recommended trajectory
-
-            assert(abs(score0) > 1e-9)
-            ratio = np.exp(np.log(score1) - np.log(score0))
             recommendations[j]['POIScore'] = (rec['POIScore'] * ratio).tolist()
             recommendations[j]['TransitionScore'] = (rec['TransitionScore'] * ratio).tolist()
             recommendations[j]['POIFeatureScore'] = (rec['POIFeatureScore'] * ratio).tolist()
             recommendations[j]['TransitionFeatureScore'] = (rec['TransitionFeatureScore'] * ratio).tolist()
             recommendations[j]['Trajectory'] = (rec['Trajectory']).tolist()
+            for k in range(len(rec['Trajectory'])):
+                recommendations[j]['POIPerFeatureScore'][k] = [a1 * x + b1 for x in rec['POIPerFeatureScore'][k]]
             if 'POIFeatureWeight' in rec:
                 recommendations[j]['POIFeatureWeight'] = rec['POIFeatureWeight'].tolist()
                 recommendations[j]['TransitionFeatureWeight'] = rec['TransitionFeatureWeight'].tolist()
-                for k in range(len(rec['Trajectory'])):
-                    #recommendations[j]['POIPerFeatureScore'][k] = [x * ratio for x in rec['POIPerFeatureScore'][k]]
-                    recommendations[j]['POIPerFeatureScore'][k] = [a1 * x + b1 for x in rec['POIPerFeatureScore'][k]]
 
         return recommendations
 
@@ -123,6 +115,8 @@ class dummyHandler():
             print('cached results loaded')
 
         recommendations = self.cached_results[(start, length)]
+        # sort results according to total scores
+        recommendations = sorted(recommendations, key=lambda x: x['TotalScore'], reverse=True)
         for i in range(len(recommendations)):
             print('Top %d recommendation: %s' % (i+1, str(list(recommendations[i]['Trajectory']))))
         for i in range(len(recommendations)):

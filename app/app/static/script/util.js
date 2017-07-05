@@ -180,35 +180,9 @@ function draw_route(traj, color, travel_mode="walking") {
     //console.log(travel);
 }
 
-
-function parse_draw(response) {
-    var trajdata = JSON.parse(response);
-    console.log(trajdata);
-    var trajs = [trajdata[0]['Trajectory']];
-    //trajs = response.split(";");
-    //console.log(trajs);
-    //console.log(trajs.length);
-    init_POIs();
-    for (var i = 0; i < trajs.length; i++) {
-        /*
-        var trajstr = trajs[i].split(",");
-        var traj = [];
-        for (var j = 0; j < trajstr.length; j++) {
-            traj.push(parseInt(trajstr[j]));
-        }
-        */
-        traj = trajs[i];
-        //console.log(traj);
-        color = '#' + colors[i]
-        travel = document.getElementById("ID_select").value;
-        draw_route(traj, color, travel);
-    }
-}
-
-
 function visualise_score(response) {
     var trajdata = JSON.parse(response);
-    // console.log(trajdata);
+    console.log(trajdata);
     var arr = [];
     var npois = 0;
     var ntrans = 0;
@@ -217,6 +191,7 @@ function visualise_score(response) {
     if (route_drawn == undefined) {
         route_drawn = [];
     }
+    
     for (var i = 0; i < trajdata.length; i++) {
         var row = {
             //'name': 'Top' + (i+1).toString(),
@@ -242,18 +217,20 @@ function visualise_score(response) {
         arr.push(row);
         route_drawn.push(false);
     }
+
     var desc = [
         //{label: 'Recommendation', type: 'string', column: 'name'},
         //{label: 'Total Score', type: 'string', column: 'total_score'}, //plain numbers (as strings)
         {label: 'Index', type: 'number', column: 'index', 'domain': [0, trajdata.length-1]},
         {label: 'Total Score', type: 'number', column: 'total_score', 'domain': [0, 100]}, //domain is required if type=number
     ];
+
     for (var j = 0; j < npois; j++) {
         desc.push({
             //label: 'SCORE_' + j.toString(),
             type: 'number',
             column: 'p' + j.toString(),
-            'domain': [0, 20],
+            'domain': [0, 10],
             color: '#' + colors[j]});
     }
     for (var j = 0; j < ntrans; j++) {
@@ -261,7 +238,7 @@ function visualise_score(response) {
             //label: 'Transition_' + j.toString(),
             type: 'number',
             column: 't' + j.toString(),
-            'domain': [0, 20],
+            'domain': [0, 10],
             color: '#' + colors[colors.length-j-1]});
     }
 
@@ -306,7 +283,7 @@ function visualise_score(response) {
                     }
                 }
             }
-            console.log(this);
+            //console.log(this);
         }
         r.insert(sel, 0);
         var col = p.create(desc[1]);
