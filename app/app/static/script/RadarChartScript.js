@@ -43,7 +43,7 @@ function draw_chart(ind, trajdata) {
 		// console.log(data);
 		//Call function to draw the Radar chart
 		//Will expect that data is in %'s
-		RadarChart.draw("#chart", data, mycfg, legends);
+		draw("#chart", data, mycfg, legends);
 }
 
 function remove_chart() {
