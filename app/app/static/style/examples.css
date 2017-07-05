@@ -42,6 +42,7 @@ body{
 .rect {
     width: 10px;
     height: 10px;
+    padding-left: 3px;
     display: inline-block;
 }
 .field {
