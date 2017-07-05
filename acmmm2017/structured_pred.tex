@@ -12,10 +12,10 @@ To eliminate possible loops in prediction, we adopt the serial list Viterbi algo
 We finally trained our model on trajectory data extracted from Flickr photos taken in Melbourne~\cite{chen2016learning}.
 
 From a visualisation perspective, an advantage of the SSVM is the explicit representation of feature scores in its final decision process. Specifically, we can disassemble the final score of a route into feature scores of each POI and the transition between two adjacent POIs. 
-We use hand-crafted POI features such as the category, popularity, and average visit duration of previous tourists, we also crafted transition features such as the distance and neighbourhood of two POIs to maximise the interpretability of the outcome.
+We use hand-crafted POI features such as the category, popularity, and average visit duration of previous tourists. We also crafted transition features such as the distance and neighbourhood of two POIs to maximise the interpretability of the outcome.
 
 \begin{figure}[t!]
-\includegraphics[width=0.8\linewidth]{figure/sample_stack.png}
+\includegraphics[width=0.7\linewidth]{figure/sample_stack.png}
 \caption{Visualisation of POI scores for top ten recommended routes. Each bar from left to right represents a relative score of each POI along the route.
 The length of stacked bars represents the total POI score of the suggested route.}
 \label{fig:stack} \vspace{-2em}
