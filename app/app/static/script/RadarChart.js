@@ -32,6 +32,7 @@ function update_chart(id, d, g) {
 
 	series = 0;
 	d.forEach(function(y, x){
+    g.selectAll("polygon").filter(".radar-chart-series"+series).remove();
     if (checkboxes[series][0][0].checked) {
       dataValues = [];
       g.selectAll(".nodes")
@@ -72,14 +73,13 @@ function update_chart(id, d, g) {
             .transition(200)
             .style("fill-opacity", cfg.opacityArea);
         });
-    } else {
-      g.selectAll("polygon").filter(".radar-chart-series"+series).remove();
     }
 	  series++;
 	});
 	series=0;
 
 	d.forEach(function(y, x){
+    g.selectAll("circle").filter(".radar-chart-series"+series).remove();
     if (checkboxes[series][0][0].checked) {
     g.selectAll(".nodes")
       .data(y).enter()
@@ -118,8 +118,6 @@ function update_chart(id, d, g) {
       })
       .append("svg:title")
       .text(function(j){return Math.max(j.value, 0)});
-    } else {
-      g.selectAll("circle").filter(".radar-chart-series"+series).remove();
     }
 	  series++;
 	});
