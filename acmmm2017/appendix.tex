@@ -1,5 +1,16 @@
+\documentclass[sigconf]{acmart}
+\settopmatter{printacmref=false}
+\setcopyright{none}
+
+\begin{document}
+
+\title{PathRec: Visual Analysis of Travel Route Recommendations}
+\subtitle{Supplementary Material}
+\maketitle
+
+\thispagestyle{empty}
+
 \appendix
-%{\Large\bf Supplementary material to \emph{PathRec: Visual Analysis of Travel Route Recommendations}}
 
 \section{Alternative approaches to trajectory recommendation}
 \label{sec:alternative}
@@ -19,3 +30,9 @@ where $\mathbf{w}$ denotes the model parameters, $\Phi$ is a query-POI feature m
 and $\mathcal{R}(\mathbf{x})$ is the set of POI pairs $(p, p')$ such that $p$ is ranked above $p'$,
 e.g. POI $p$ is observed more often than POI $p'$, with respect to query $\mathbf{x}$.
 Lastly, the top-ranked POIs with respect to the given query were taken to form a trajectory.
+
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{ref_appendix}
+
+\end{document}

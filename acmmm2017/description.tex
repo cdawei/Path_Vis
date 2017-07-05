@@ -4,7 +4,8 @@
 
 \begin{document}
 
-\title{Description of the demonstrated system}
+\title{PathRec: Visual Analysis of Travel Route Recommendations}
+\subtitle{System Description}
 \maketitle
 
 \thispagestyle{empty}
@@ -28,7 +29,10 @@ The client side was implemented in HTML, JavaScript and CSS with the help of \te
 % website for users
 \section{System setup}
 \label{sec:setup}
-We created a website for users to try this system, it can be accessed at \url{http://115.146.87.43:8080/}.
+We created a website for users to try this system, it can be accessed at 
+\url{http://www.pathrec.ml},
+%\url{http://115.146.87.43:8080/}.
+and a narrated screen capture of the system in action is available at \url{https://cdn.rawgit.com/cdawei/path_vis/master/slides.pdf}.
 The source code of this system is hosted in a public GitHub repository, 
 and anyone interested in it can also run the system locally, by following the steps below:
 \begin{enumerate}
@@ -36,13 +40,13 @@ and anyone interested in it can also run the system locally, by following the st
 % DW: move this to https://github.com/computationalmedia if it gets accepted?
 \item Install the Python runtime and required libraries: 
       \begin{itemize}
-      \item \textit{Python} version 3.5.3
-      \item \textit{numpy}~\cite{numpy} version 1.12.1 or newer
-      \item \textit{scipy}~\cite{scipy} version 0.19.0 or newer
-      \item \textit{pandas}~\cite{pandas} version 0.19.2
-      \item \textit{scikit-learn}~\cite{sklearn} version 0.18.1 or newer
-      \item \textit{joblib}~\cite{joblib} version 0.11 or newer
-      \item \textit{pystruct}~\cite{JMLR:v15:mueller14a} version 0.2.4 or newer
+      \item \textit{Python} version 3.5.3 or later
+      \item \textit{numpy}~\cite{numpy} version 1.12.1 or later
+      \item \textit{scipy}~\cite{scipy} version 0.19.0 or later
+      \item \textit{pandas}~\cite{pandas} version 0.19.2 or later
+      \item \textit{scikit-learn}~\cite{sklearn} version 0.18.1 or later
+      \item \textit{joblib}~\cite{joblib} version 0.11 or later
+      \item \textit{pystruct}~\cite{JMLR:v15:mueller14a} version 0.2.4 or later
       \end{itemize}
 \item Go to the directory with system source code and launch the server side by typing \texttt{python server.py}
 \item Access \url{http://localhost:8080} using a web browser to use the visualisation system.
