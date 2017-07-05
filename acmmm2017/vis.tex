@@ -2,16 +2,16 @@
 %what are the features we want to emphasis?
 %make a bullet list of something like that
 Our goal is to design an interactive visualisation system on top of the structured prediction framework.
-Figure~\ref{fig:overview} shows the overview of a live demo system, which consists of four major components: a map to display suggested routes, an input box for user query on the left side, a stacked score of routes on the upper right side, and a radar chart to compare multiple POIs on the lower right side. 
-The role and the construction of three major components, except the main map, are as follows:
+Figure~\ref{fig:overview} shows the overview of a live demo system, which consists of four major components: a map to display suggested routes, an input box for user query (upper left), a stacked score of routes (upper right), and a radar chart to compare multiple POIs (lower right). 
+The role and the construction of three major components, besides the main map, are as follows:
 
 %\begin{itemize}
 \textbf{Query input}: A query consists of a starting POI and a trip length. 
 Users can choose the starting POI by clicking icons on the map and can adjust the slide to set the trip length. 
-In addition, we support three different travelling modes: bicycling, walking, and driving.
-For each mode, we optimise suggested routes between POIs in a sequence.
+In addition, three different travelling modes (e.g. bicycling, walking, and driving) are supported, 
+and we optimise the suggested routes for each mode.
 
-\textbf{Route score visualisation}: Ranks of candidate routes are determined by the total scores from the SSVM. 
+\textbf{Route score visualisation}: Ranks of candidate routes are determined by their total scores from the SSVM. 
 The score of each route can be decomposed into scores for each POI and edge along the route. 
 We adopt the LineUp framework~\cite{gratzl2013lineup} designed to support the visualisation of multi-attribute ranking via stacked representation. 
 Figure~\ref{fig:stack} shows the stacked representation of the top ten scored routes, where the proportion of each bar indicates the importance of each POI in the route.
@@ -22,6 +22,6 @@ Figure~\ref{fig:stack} shows the stacked representation of the top ten scored ro
 
 \begin{figure}[t!]
 \includegraphics[width=0.8\linewidth]{figure/sample_radar.png}
-    \caption{Comparison between the \textit{Queen Victoria Market} and \textit{Melbourne Aquarium}. The \textit{Queen Victoria Market} has a high score on \textit{shopping} and \textit{city precincts} features whereas the \textit{Melbourne Aquarium} has a high score on \textit{Entertainment} feature.}
-\label{fig:radar}
+    \caption{Feature comparison between two POIs: \textit{Queen Victoria Market} and \textit{Melbourne Aquarium}. The former has a high score on \textit{shopping} and \textit{city precincts} features whereas the latter has a high score on \textit{Entertainment} feature.}
+\label{fig:radar} \vspace{-1em}
 \end{figure}
