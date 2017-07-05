@@ -45,12 +45,14 @@
 \begin{document}
 \title{PathRec: Visual Analysis of Travel Route Recommendations}
 
-\author{Anonymous Authors}
-% \author{Dawei Chen*$\ddagger$, Dongwoo Kim*, Lexing Xie*$\ddagger$,  Minjeong Shin*, Aditya Menon*$\ddagger$, Cheng Soon Ong*$\ddagger$, Iman Avazpour$\dagger$, John Grundy$\dagger$}
-% \affiliation{%
-%   \institution{*The Australian National University, $\ddagger$Data61, $\dagger$Deakin University}
-% }
-% \email{{u5708856,dongwoo.kim,lexing.xie,u1033719}@anu.edu.au, {aditya.menon, chengsoon.ong}@data61.csiro.au, {iman.avazpour,j.grundy}@deakin.edu.au}
+\author{Dawei Chen\raisebox{.5ex}{\small*$\dagger$}, Dongwoo Kim\raisebox{.5ex}{\small*}, Lexing Xie\raisebox{.5ex}{\small*$\dagger$},  
+        Minjeong Shin\raisebox{.5ex}{\small*}, Aditya Krishna Menon\raisebox{.5ex}{\small$\dagger$*}, \\
+        Cheng Soon Ong\raisebox{.5ex}{\small$\dagger$*}, Iman Avazpour\raisebox{.5ex}{\small$\ddagger$}, John Grundy\raisebox{.5ex}{\small$\ddagger$}}
+ \affiliation{%
+   \institution{*The Australian National University, $\dagger$Data61, $\ddagger$Deakin University}
+ }
+ \email{{u5708856, dongwoo.kim, lexing.xie, u1033719, aditya.menon, chengsoon.ong}@anu.edu.au}
+ \email{{iman.avazpour,j.grundy}@deakin.edu.au}
 
 
 % The default list of authors is too long for headers}
@@ -61,7 +63,7 @@
 \begin{abstract}
 We present an interactive visualisation tool for recommending travel trajectories. 
 This is a special application for the more general problem of making structured prediction results more transparent to end users. 
-This system is based on new machine learning formulations and algorithms for the trajectory recommendation problem~\cite{chen2016learning,chen2017SR}. 
+This system is based on new machine learning formulations and algorithms for the trajectory recommendation problem. %~\cite{chen2016learning,chen2017SR}. 
 %It is designed to explain structured predictions made by several new algorithms, and to assist comparative visual analysis of different candidate trajectories. 
 %One challenge for visualizing the properties of a structured object such as a trajectory is to present and compare information from a large number of modalities. 
 The system starts from a map-based overview, taking an interactive query as starting point.  It then breaks down contributions from different geographical and user behavior features, and those from individual points-of-interest versus pairs of consecutive points on a route. The system also supports detailed quantitative interrogation by comparing a large number of features for two or more points. 
@@ -95,6 +97,13 @@ Effective trajectory visualisations can potentially benefit a large cohort of on
 
 \keywords{Route Visualisation, Travel Recommendation, Learning to rank}
 
+% rights and permissions information 
+\copyrightyear{2017} 
+\acmYear{2017} 
+\setcopyright{rightsretained} 
+\acmConference{RecSys '17}{August 27-31, 2017}{Como, Italy}\acmDOI{10.1145/3109859.3109983}
+\acmISBN{978-1-4503-4652-8/17/08}
+
 % Used in some conference proceedings e.g. sigplan and sigchi
 \maketitle
  
@@ -103,11 +112,12 @@ Effective trajectory visualisations can potentially benefit a large cohort of on
  \begin{figure}
  \centering
    \includegraphics[width=\linewidth]{figure/sample_map2.png}
-     \caption{Travel route visualisation system\protect\footnotemark. Given a starting POI and the number of POIs to be visited, the system recommends a set of routes from a history of previous tourists.}
-   \label{fig:overview}
+     \caption{Travel route visualisation system. %\protect\footnotemark. 
+     Given a starting POI and the number of POIs to be visited, the system recommends a set of routes from a history of previous tourists.}
+     \label{fig:overview}\vspace{-2em}
  \end{figure}
 
-\footnotetext{A narrated screen capture of the system in action is available at \url{https://cdn.rawgit.com/cdawei/path_vis/master/slides.pdf}.}
+%\footnotetext{A narrated screen capture of the system in action is available at \url{https://cdn.rawgit.com/cdawei/path_vis/master/slides.pdf}.}
  
 \input{structured_pred}
 \input{vis}
@@ -115,8 +125,8 @@ Effective trajectory visualisations can potentially benefit a large cohort of on
 
 
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{sigproc,ref_appendix} 
+\bibliography{sigproc}%,ref_appendix} 
 
-\input{appendix}
+%\input{appendix}
 
 \end{document}
