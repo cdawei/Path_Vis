@@ -34,11 +34,41 @@ Lastly, the top-ranked POIs with respect to the given query were taken to form a
 \section{Score normalisation for visualisation}
 \label{sec:scorenorm}
 
-We describe details on how to normalise prediction scores for better visualisation. 
+%We describe details on how to normalise prediction scores for better visualisation. 
+To better visualise trajectory/POI/transition scores, we perform linear scaling on these scores for each query.
+Specifically, we scale the trajectory scores for the top 10 suggested routes such that:
+\begin{itemize}
+\item The first trajectory scores 100,
+\item and the last (i.e. 10-th) trajectory scores 10.
+\end{itemize}
+Further, 
+We share the same scaling parameters as that of trajectory scores for scores of POI features, e.g. popularity, visit duration, category etc.
+
+For transition scores, however, 
+we perform another linear scaling instead of sharing the scaling parameters of trajectory scores to achieve better visualisation,
+since many of the transition scores are very small, we scale them into the range [0.1, 1].
 
 \section{Choices on visualisation paradigms}
 
-We discuss rationale for choosing visualisation components and possible alternatives. 
+%We discuss rationale for choosing visualisation components and possible alternatives. 
+To help users of trajectory recommendation system understand why the suggested routes are recommended,
+we make full use of the advantage of SSVM that the score of a trajectory, 
+which represents the quality with respect to the given query, 
+can be decomposed into a set of scores corresponding to the features of individual POIs and transitions between adjacent POIs, then it becomes straightforward to visualise these scores using a stacked bar plot,
+which intuitively shows the contribution of each POI in a trajectory.
+
+In addition, the stacked bar plot,
+together with the visualisation of the significance of individual features in each POI in the radar chart,
+also allows users to compare the importance of POIs in different suggested routes.
+
+These visualisation enables users to choose the best trajectory among the suggested routes by trading off a number of factors, e.g. popularity, distance etc.
+Compared with classic recommendation system which only provides a score for each suggested item, 
+this approach makes the recommendation more transparent to end-users.
+
+Alternatively, in addition to show the ranking of routes, 
+we can also display the ranking of POIs and transitions with respect to the given query, 
+as well as the contributions by all POIs and all transitions in a trajectory.
+For visualising POI features, one can also use parallel coordinates instead of radar chart.
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{ref_appendix}
