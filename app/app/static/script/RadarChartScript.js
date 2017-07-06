@@ -25,8 +25,13 @@ var d = [
 			  ]
 		];
 
-var labels = ["City precincts", "Shopping", "Entertainment", "Public galleries",
-		"Institutions", "Structures", "Sports stadiums", "Parks and spaces", "Transport"];
+var labels = [//"City precincts", "Shopping", "Entertainment", "Public galleries", 
+              //"Institutions", "Structures", "Sports stadiums", "Parks and spaces", "Transport",
+              //"West", "South", "North", "Central", "East", 
+              "Popularity", "Visits", "Duration",
+              //"Trip length", "Same category", 
+              "Distance", "Popularity difference", "Visits difference", "Duration difference", "Same area"];
+var feature_indices = [14, 15, 16, 19, 20, 21, 22, 23];
 
 function draw_chart(ind, trajdata) {
 		data = [];
@@ -34,7 +39,8 @@ function draw_chart(ind, trajdata) {
 		for (var k = 0; k < trajdata[ind]['POIPerFeatureScore'].length; k++) {
 				entry = [];
 				for (var j = 0; j < labels.length; j++) {
-						entry.push({ axis:labels[j], value:trajdata[ind]['POIPerFeatureScore'][k][j] });
+                        jx = feature_indices[j];
+						entry.push({ axis:labels[j], value:trajdata[ind]['POIPerFeatureScore'][k][jx] });
 				}
 				console.log(entry);
 				legends.push('p'+k.toString());
