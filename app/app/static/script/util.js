@@ -212,6 +212,7 @@ function draw_route(traj, color, travel_mode="walking") {
                     total_distance += e[0].legs[i].distance.value;
                 }
                 draw_poi_list(traj, pois, total_time, total_distance);
+                console.log('middle points reorder index:', e[0].waypoint_order);
             }
         });
     });
