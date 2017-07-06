@@ -151,7 +151,9 @@ function draw(id, d, options, legends){
 
   checkboxes = [];
   for (var i = 0; i < legends.length; i++) {
-    var checkbox = legends_field.append('input')
+    var legend = legends_field.append('div')
+                    .attr("class", "legend");
+    var checkbox = legend.append('input')
       .attr("id", "checkbox-"+i)
       .attr("type", "checkbox")
       .attr("checked", "checked")
@@ -159,12 +161,10 @@ function draw(id, d, options, legends){
         update_chart(id, d, g);
       });
     checkboxes[i] = checkbox;
-    var rect = legends_field.append('div')
+    var rect = legend.append('div')
       .attr("class", "rect")
-      .style("background-color", "#" + colors[i]);
-    var legend = legends_field.append('div')
-      .attr("class", "field")
-      .text(legends[i]);
+      .style("background-color", "#" + colors[i])
+      .text((i == 0)? 'S': i);
   }
 
   var g = d3.select(id)
