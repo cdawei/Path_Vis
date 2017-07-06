@@ -192,6 +192,9 @@ function visualise_score(response) {
         route_drawn = [];
     }
     
+    var score_poi_max = 0;
+    var score_tran_max = 0;
+    
     for (var i = 0; i < trajdata.length; i++) {
         var row = {
             //'name': 'Top' + (i+1).toString(),
@@ -209,10 +212,16 @@ function visualise_score(response) {
         for (var j = 0; j < poi_scores.length; j++) {
             var key = 'p' + j.toString();
             row[key] = poi_scores[j];
+            if (poi_scores[j] > score_poi_max) {
+                score_poi_max = poi_scores[j];
+            }
         }
         for (var j = 0; j < tran_scores.length; j++) {
             var key = 't' + j.toString();
             row[key] = tran_scores[j];
+            if (tran_scores[j] > score_tran_max) {
+                score_tran_max = tran_scores[j];
+            }
         }
         arr.push(row);
         route_drawn.push(false);
@@ -230,7 +239,8 @@ function visualise_score(response) {
             //label: 'SCORE_' + j.toString(),
             type: 'number',
             column: 'p' + j.toString(),
-            'domain': [0, 10],
+            //'domain': [0, 10],
+            'domain': [0, score_poi_max],
             color: '#' + colors[j]});
     }
     for (var j = 0; j < ntrans; j++) {
@@ -238,7 +248,8 @@ function visualise_score(response) {
             //label: 'Transition_' + j.toString(),
             type: 'number',
             column: 't' + j.toString(),
-            'domain': [0, 10],
+            //'domain': [0, 10],
+            'domain': [0, score_tran_max],
             color: '#' + colors[colors.length-j-1]});
     }
 

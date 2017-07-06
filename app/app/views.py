@@ -30,7 +30,7 @@ class dummyHandler():
         b = 100 - a * score_max
         #print(a, b)
 
-        # linear scaling of POI feature scores
+        # linear scaling of POI feature scores independently
         # there is a vector of feature scores for each POI in each recommended trajectory
         # a1 * score_max_feature + b1 = 10
         # a1 * score_min_feature + b1 = 1
@@ -41,6 +41,18 @@ class dummyHandler():
         assert(score_max_feature > score_min_feature)
         a1 = np.exp(np.log(9) - np.log(score_max_feature - score_min_feature))
         b1 = 10 - a1 * score_max_feature
+        #print(a1, b1)
+
+        # linear scaling of transition scores independently
+        # a2 * score_max_tran + b2 = 1
+        # a2 * score_min_tran + b2 = 0.1
+        scores_tran = [x for z in recommendations for x in z['TransitionScore']]
+        score_max_tran = np.max(scores_tran)
+        score_min_tran = np.min(scores_tran)
+        assert(abs(score_max_tran) > 1e-9)
+        assert(score_max_tran > score_min_tran)
+        a2 = np.exp(np.log(0.9) - np.log(score_max_tran - score_min_tran))
+        b2 = 1 - a2 * score_max_tran
         #print(a2, b2)
 
         for j in range(len(recommendations)):
@@ -86,8 +98,10 @@ class dummyHandler():
             # 4        neighbourhood (transition probability according to the neighbourhood of POI)
 
             # recommendations[j]['POIPerFeatureScore'][k] is a vector of (feature) scores of the k-th POI in the j-th recommended trajectory
+
             recommendations[j]['POIScore'] = (rec['POIScore'] * ratio).tolist()
-            recommendations[j]['TransitionScore'] = (rec['TransitionScore'] * ratio).tolist()
+            #recommendations[j]['TransitionScore'] = (rec['TransitionScore'] * ratio).tolist()
+            recommendations[j]['TransitionScore'] = [a2 * x + b2 for x in rec['TransitionScore']]
             recommendations[j]['POIFeatureScore'] = (rec['POIFeatureScore'] * ratio).tolist()
             recommendations[j]['TransitionFeatureScore'] = (rec['TransitionFeatureScore'] * ratio).tolist()
             recommendations[j]['Trajectory'] = (rec['Trajectory']).tolist()
