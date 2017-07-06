@@ -1,6 +1,4 @@
 \section{Visualisation}
-%what are the features we want to emphasis?
-%make a bullet list of something like that
 Our goal is to design an interactive visualisation system on top of the structured prediction framework.
 Figure~\ref{fig:overview} shows the overview of a live demo system, which consists of five major components: a map to display suggested routes, an input box for user query (upper left), a stacked score of routes (upper right), a POI list (lower left), and a radar chart to compare features of multiple POIs (lower right). 
 The role and the construction of the four major components, besides the main map, are as follows:
@@ -11,16 +9,23 @@ Users can choose the starting POI by clicking icons on the map and can adjust th
 In addition, three different travelling modes (e.g. bicycling, walking, and driving) are supported, 
 and we optimise the suggested routes for each mode.
 
-\textbf{Route score visualisation}: Ranks of candidate routes are determined by their total scores from the SSVM. 
-The score of each route are decomposed into a set of scores for POIs and transitions along the route. 
-We adopt the LineUp framework~\cite{gratzl2013lineup} designed to support the visualisation of multi-attribute ranking via stacked representation. 
-To assist visualisation, both the POI and transition scores are properly scaled (see Appendix\footnote{https:arxiv.org/abs/???.????} for details).
-Figure~\ref{fig:stack} shows the stacked bars of the top 10 scored routes, 
-scores of different POI and transition are shown in different colours,
-and the proportion of each bar indicates the importance of the corresponding POI and transition in the route.
-At the left side, % of this representation,
-the user can select one or more suggested routes to get the numerical scores of POIs and transitions.
-All selected routes are drawn on the map, and the POIs in the most recent chosen route are shown with labelled icons.
+\textbf{Route score visualisation}: 
+The SSVM evaluates relevance scores of POIs and transitions in a candidate route to the given query and uses the sum of the relevance scores to determine the ranks of the routes.
+To visualise the POI and transition scores, we adopt a stacked bar representation~~\cite{gratzl2013lineup}, designed to support the visualisation of multi-attribute ranking.
+In Figure~\ref{fig:stack}, the system decompose the scores of top 10 recommended routes into POI and transition scores via the stacked bar representation, where the size of each bar is proportional to the relevance score of the corresponding POI and transition in the route.
+Note that the POI and transition scores are scaled differently to support better visual discrimination\footnote{See Appendix for details at https://arxiv.org/abs/???.????}.
+For each POI score, we also keep the same POI colour used to represent the POI on the map to support matching between a route on the map and bar plot seamlessly.
+
+%Ranks of candidate routes are determined by their total scores from the SSVM. 
+%The score of each route are decomposed into a set of scores for POIs and transitions along the route. 
+%We adopt the LineUp framework~\cite{gratzl2013lineup} designed to support the visualisation of multi-attribute ranking via stacked representation. 
+%To assist visualisation, both the POI and transition scores are properly scaled (see Appendix\footnote{https:arxiv.org/abs/???.????} for details).
+%Figure~\ref{fig:stack} shows the stacked bars of the top 10 scored routes.
+%Scores of different POI and transition are shown in different colours,
+%and the proportion of each bar indicates the importance of the corresponding POI and transition in the route.
+%At the left side, % of this representation,
+%the user can select one or more suggested routes to get the numerical scores of POIs and transitions.
+%All selected routes are drawn on the map, and the POIs in the most recent chosen route are shown with labelled icons.
 
 \textbf{POI list}:
 Users can select one or more suggested routes to get more detailed information. 
