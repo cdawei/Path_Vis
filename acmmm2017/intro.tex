@@ -2,11 +2,12 @@
 
 \section{Introduction}
 %background
-Sequence ranking has emerged as an important tool for solving diverse problems such as travel route and music playlist recommendations. 
-Unlike the classical ranking algorithm where items are considered independently, the sequence ranking algorithm requires modelling a structure between items and suggests a set of items as a whole. 
+Sequence recommendation has emerged as an important tool for solving diverse problems such as travel route and music playlist recommendations~\cite{chen2017SR}. 
+Unlike the classical ranking algorithm where items are considered independently~\cite{koren2009matrix},
+the sequence recommendation algorithm requires modelling a structure between items and suggests a set of items as a whole. 
 For example, consider recommending a trajectory of points-of-interest (POIs) in a city to a visitor. 
 While the classical ranking algorithm can learn a user's preference for each individual location, it may ignore the distances between them and could suggest a longer trajectory than is optimal. 
-Several sequence ranking algorithms have been proposed to solve this problem and demonstrated superior performance compared to classical ranking algorithms. 
+Several sequence recommendation algorithms have been proposed to solve this problem and demonstrated superior performance compared to classical ranking algorithms~\cite{ijcai15,chen2017SR}. 
 Nonetheless, recommendation algorithms for sequences and trajectories~\cite{chen2016learning,chen2017SR} have many components and can be difficult for a user to understand. This is part of the general challenge of introducing transparency and accountability for machine learning algorithms~\cite{fatml}. 
 %a remaining challenge is to construct an interactive recommendation system so that a user can analyse the suggested sequences and plan a better trip.
 
