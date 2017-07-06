@@ -230,10 +230,10 @@ function visualise_score(response) {
     if (route_drawn == undefined) {
         route_drawn = [];
     }
-    
+
     var score_poi_max = 0;
     var score_tran_max = 0;
-    
+
     for (var i = 0; i < trajdata.length; i++) {
         var row = {
             //'name': 'Top' + (i+1).toString(),
@@ -341,11 +341,14 @@ function visualise_score(response) {
         //col.collapsed = true;
         r.push(col);
 
+        var scale = 5/npois;
         //poi scores stack
         r.push((function () {
             const rstack = p.create(LineUpJS.model.createStackDesc('POI Scores'));
             for (var j = 1; j < npois; j++) { //ignore the first POI
-                rstack.push(p.create(desc[2+j]));
+                var stack = p.create(desc[2+j]);
+                stack.width *= scale;
+                rstack.push(stack);
             }
             //rstack.setWeights([0.2, 0.8]);
             //rstack.compressed = true;
@@ -357,7 +360,9 @@ function visualise_score(response) {
         r.push((function () {
             const rstack = p.create(LineUpJS.model.createStackDesc('Transition Scores'));
             for (var j = 0; j < ntrans; j++) {
-                rstack.push(p.create(desc[2+npois+j]));
+                var stack = p.create(desc[2+npois+j]);
+                stack.width *= scale;
+                rstack.push(stack);
             }
             rstack.compressed = true;
             rstack.collapsed = true;
