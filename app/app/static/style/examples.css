@@ -39,17 +39,30 @@ body{
     margin-bottom: 10px;
 }
 
+.legend {
+    padding: 0 15px;
+    display: inline-block;
+}
+
 .rect {
-    width: 10px;
-    height: 10px;
-    padding-left: 3px;
+    width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    font-weight: bold;
     display: inline-block;
 }
 .field {
-    font-size: 12px;
-    height: 10px;
     display: inline-block;
-    margin: 0px 20px 0px 5px;
+    margin: 0px 5px 0px 5px;
+}
+
+.poi-title {
+    margin: 10px 0 0 0;
+}
+.poi-info {
+    border: 0.3px solid #ddd;
+    background-color: white;
+    padding: 3px;
 }
 
 .input-form {

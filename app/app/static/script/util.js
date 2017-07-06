@@ -96,6 +96,7 @@ function draw_POIs() {
 }
 
 function clear_POIs() {
+    remove_poi_list();
     if (allMarkers.length == 0) {
         init_POIs();
     } else {
@@ -104,6 +105,44 @@ function clear_POIs() {
         }
     }
     draw_POIs();
+}
+
+function remove_poi_list() {
+    d3.selectAll(".travel-info").remove();
+    d3.selectAll(".poi-title").remove();
+    d3.selectAll(".poi-info").remove();
+}
+
+function draw_poi_list(traj, pois, time, distance) {
+    console.log("draw_poi_list: " +traj);
+    console.log("Time: " + time + " seconds, " + "Distance: " + distance + ' meters'); //visualise (time,distance) somewhere?
+
+    remove_poi_list();
+
+    var plist = d3.select("#poi-list");
+    plist.append('div').attr("class", "travel-info")
+      .text("Estimated Time: " + (time/60).toFixed(2) + " minutes");
+    plist.append('div').attr("class", "travel-info")
+      .text("Distance: " + (distance/1000).toFixed(3) + " km");
+
+    for (var i = 0; i < traj.length; i++) {
+        var poi = plist.append('div').attr("class", "poi-title");
+        poi.append('div')
+          .attr("class", "rect")
+          .style("background-color", "#" + colors[i])
+          .text((i == 0)? 'S': i);
+        poi.append('div').attr("class", "field")
+          .style("font-weight", "bold")
+          .text("POI "+traj[i]);
+        var poi = plist.append('div').attr("class", "poi-info");
+        poi.append('div').attr("class", "field")
+          .text("Name: ");
+        poi.append('a')
+          .text(pois[traj[i]]["name"])
+          .attr("href", pois[traj[i]]["url"]);
+        poi.append('div').attr("class", "field")
+          .text("Type: " +pois[traj[i]]["category"]);
+    }
 }
 
 function draw_route(traj, color, travel_mode="walking") {
@@ -137,7 +176,7 @@ function draw_route(traj, color, travel_mode="walking") {
         // set POI colors on the route
         allMarkers[traj[0]].icon.url = get_custom_pin("S", selected_color);
         for (var i = 1; i <  traj.length; i++) {
-            console.log('change marker color: ' + i);
+            // console.log('change marker color: ' + i);
             allMarkers[traj[i]].icon.url = get_custom_pin(i.toString(), colors[i]);
         }
         draw_POIs();
@@ -172,7 +211,7 @@ function draw_route(traj, color, travel_mode="walking") {
                     total_time += e[0].legs[i].duration.value;
                     total_distance += e[0].legs[i].distance.value;
                 }
-                console.log("Time: " + total_time + " seconds, " + "Distance: " + total_distance + ' meters'); //visualise (time,distance) somewhere?
+                draw_poi_list(traj, pois, total_time, total_distance);
             }
         });
     });

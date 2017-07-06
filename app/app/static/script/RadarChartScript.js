@@ -42,7 +42,7 @@ function draw_chart(ind, trajdata) {
                         jx = feature_indices[j];
 						entry.push({ axis:labels[j], value:trajdata[ind]['POIPerFeatureScore'][k][jx] });
 				}
-				console.log(entry);
+				// console.log(entry);
 				legends.push('p'+k.toString());
 				data.push(entry);
 		}
