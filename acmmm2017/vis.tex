@@ -12,30 +12,31 @@ In addition, three different travelling modes (e.g. bicycling, walking, and driv
 and we optimise the suggested routes for each mode.
 
 \textbf{Route score visualisation}: Ranks of candidate routes are determined by their total scores from the SSVM. 
-The score of each route are decomposed into a set of scores for POIs and edges along the route. 
+The score of each route are decomposed into a set of scores for POIs and transitions along the route. 
 We adopt the LineUp framework~\cite{gratzl2013lineup} designed to support the visualisation of multi-attribute ranking via stacked representation. 
-We scale both the POI scores and transition (i.e. edges) scores to assist visualisation (see Appendix\footnote{https:arxiv.org/abs/???.????} for details).
+To assist visualisation, both the POI and transition scores are properly scaled (see Appendix\footnote{https:arxiv.org/abs/???.????} for details).
 Figure~\ref{fig:stack} shows the stacked bars of the top 10 scored routes, 
 scores of different POI and transition are shown in different colours,
-and the proportion of each bar indicates the importance of each POI and transition in the route.
-In addition, user can select one or more suggested routes to get the numerical scores of POIs and transitions at the left side of this representation.
-All selected routes will be drawn on the map, and the POIs in the most recent chosen route are shown with labelled icons.
+and the proportion of each bar indicates the importance of the corresponding POI and transition in the route.
+At the left side, % of this representation,
+the user can select one or more suggested routes to get the numerical scores of POIs and transitions.
+All selected routes are drawn on the map, and the POIs in the most recent chosen route are shown with labelled icons.
 
 \textbf{POI list}:
 Users can select one or more suggested routes to get more detailed information. 
-Specifically, information about the sequence of POIs in the selected route is provided, including POI names and their categories (e.g. Parks, Entertainment etc.).
+Specifically, information about the sequence of POIs in the selected route is provided, including POI names and their categories (e.g. Parks, Entertainment).
 The POIs are ordered according to the suggested visiting order, with corresponding numerically labelled icons on the map.
 The system also provides the estimated time and distance of the selected route at the top of this POI list.
-When more than one routes are selected, the system will display POIs of the most recent chosen route.
+When more than one route is selected, the system will display the POIs of the most recent chosen route.
 
 \textbf{POI feature visualisation}: We further provide a radar chart to analyse the variation between POIs in a single route. 
 For example, in Figure~\ref{fig:radar}, we compare two POIs, the \textit{Queen Victoria Market} and \textit{Melbourne Aquarium}, in terms of POI features and their importance in the suggested route. 
 The radar chart shows the corresponding POI feature scores when a user selects a route.
-In particular, user can check/uncheck any POI in the selected route, and the feature scores of all checked POIs will be shown in the chart.
+In particular, the user can check/uncheck any POI in the selected route, and the feature scores of all checked POIs will be shown in the chart.
 %\end{itemize}
 
 \begin{figure}[t!]
 \includegraphics[width=0.6\linewidth]{figure/sample_radar.png} \vspace{-10pt}
     \caption{POI feature comparison between \textit{Melbourne Aquarium} and \textit{Queen Victoria Market}: the former scores higher on \textit{Popularity} and \textit{Visits difference} features whereas the latter scores higher on \textit{Visits} and \textit{Popularity difference} features.}
-\label{fig:radar} \vspace{-2em}
+\label{fig:radar} \vspace{-1em}
 \end{figure}
