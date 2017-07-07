@@ -6,15 +6,17 @@ The role and the construction of the four major components, besides the main map
 %\begin{itemize}
 \textbf{Query input}: A query consists of a starting POI and a trip length. 
 Users can choose the starting POI by clicking icons on the map and can adjust the slide to set the trip length. 
-In addition, three different travelling modes (e.g. bicycling, walking, and driving) are supported, 
+In addition, three different travelling modes (e.g. bicycling, driving and walking) are supported, 
 and we optimise the suggested routes for each mode.
 
 \textbf{Route score visualisation}: 
 The SSVM evaluates relevance scores of POIs and transitions in a candidate route to the given query and uses the sum of the relevance scores to determine the ranks of the routes.
 To visualise the POI and transition scores, we adopt a stacked bar representation~~\cite{gratzl2013lineup}, designed to support the visualisation of multi-attribute ranking.
 In Figure~\ref{fig:stack}, the system decompose the scores of top 10 recommended routes into POI and transition scores via the stacked bar representation, where the size of each bar is proportional to the relevance score of the corresponding POI and transition in the route.
-Note that the POI and transition scores are scaled differently to support better visual discrimination\footnote{See Appendix for details at http://arxiv.org/abs/1707.01627}.
-For each POI score, we also keep the same POI colour used to represent the POI on the map to support matching between a route on the map and bar plot seamlessly.
+Note that the POI and transition scores are scaled differently to support better visual discrimination\footnote{See Appendix for details at \url{http://arxiv.org/abs/1707.01627}}.
+To seamlessly match a route on the map and the corresponding POI scores in the bar plot,
+we use the same colour for both the POI icon and its POI score.
+%For each POI score, we also keep the same POI colour used to represent the POI on the map to support matching between a route on the map and bar plot seamlessly.
 
 %Ranks of candidate routes are determined by their total scores from the SSVM. 
 %The score of each route are decomposed into a set of scores for POIs and transitions along the route. 
@@ -30,12 +32,12 @@ For each POI score, we also keep the same POI colour used to represent the POI o
 \textbf{POI list}:
 Users can select one or more suggested routes to get more detailed information. 
 Specifically, information about the sequence of POIs in the selected route is provided, including POI names and their categories (e.g. Parks, Entertainment).
-The POIs are ordered according to the suggested visiting order, with corresponding numerically labelled icons on the map.
+The POIs are ordered according to the suggested visiting order, with corresponding icons labelled numerically on the map.
 The system also provides the estimated time and distance of the selected route at the top of this POI list.
 When more than one route is selected, the system will display the POIs of the most recent chosen route.
 
 \textbf{POI feature visualisation}: We further provide a radar chart to analyse the variation between POIs in a single route. 
-For example, in Figure~\ref{fig:radar}, we compare two POIs, the \textit{Queen Victoria Market} and \textit{Melbourne Aquarium}, in terms of POI features and their importance in the suggested route. 
+For example, in Figure~\ref{fig:radar}, we compare two POIs (\textit{Melbourne Aquarium} and \textit{Queen Victoria Market}) in terms of POI features and their importance in the suggested route. 
 The radar chart shows the corresponding POI feature scores when a user selects a route.
 In particular, the user can check/uncheck any POI in the selected route, and the feature scores of all checked POIs will be shown in the chart.
 %\end{itemize}
