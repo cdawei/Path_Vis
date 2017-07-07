@@ -13,7 +13,7 @@ and we optimise the suggested routes for each mode.
 The SSVM evaluates relevance scores of POIs and transitions in a candidate route to the given query and uses the sum of the relevance scores to determine the ranks of the routes.
 To visualise the POI and transition scores, we adopt a stacked bar representation~~\cite{gratzl2013lineup}, designed to support the visualisation of multi-attribute ranking.
 In Figure~\ref{fig:stack}, the system decompose the scores of top 10 recommended routes into POI and transition scores via the stacked bar representation, where the size of each bar is proportional to the relevance score of the corresponding POI and transition in the route.
-Note that the POI and transition scores are scaled differently to support better visual discrimination\footnote{See Appendix for details at https://arxiv.org/abs/???.????}.
+Note that the POI and transition scores are scaled differently to support better visual discrimination\footnote{See Appendix for details at http://arxiv.org/abs/1707.01627}.
 For each POI score, we also keep the same POI colour used to represent the POI on the map to support matching between a route on the map and bar plot seamlessly.
 
 %Ranks of candidate routes are determined by their total scores from the SSVM. 
