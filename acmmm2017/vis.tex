@@ -1,6 +1,6 @@
 \section{Visualisation}
 Our goal is to design an interactive visualisation system on top of the structured prediction framework.
-Figure~\ref{fig:overview} shows the overview of a live demo system, which consists of five major components: a map to display suggested routes, an input box for user query (upper left), a stacked score of routes (upper right), a POI list (lower left), and a radar chart to compare features of multiple POIs (lower right). 
+Figure~\ref{fig:overview} shows the overview of a live demo system, which consists of five major components: a map to display the suggested routes, an input box for user query (upper left), a stacked score of routes (upper right), a POI list box (lower left), and a radar chart to compare features of multiple POIs (lower right). 
 The role and the construction of the four major components, besides the main map, are as follows:
 
 %\begin{itemize}
@@ -16,7 +16,7 @@ In Figure~\ref{fig:stack}, the system decompose the scores of top 10 recommended
 Note that the POI and transition scores are scaled differently to support better visual discrimination\footnote{See Appendix for details at \url{http://arxiv.org/abs/1707.01627}}.
 For a seamless match between a route on the map and the corresponding POI scores in the bar plot,
 we use the same colour for both POI score and POI icon on the map.
-We also allow users to select multiple rows to visualise corresponding routes on the map.
+We also allow users to select multiple rows to visualise the corresponding routes on the map.
 %For each POI score, we also keep the same POI colour used to represent the POI on the map to support matching between a route on the map and bar plot seamlessly.
 
 %Ranks of candidate routes are determined by their total scores from the SSVM. 
@@ -36,9 +36,9 @@ The POI list box provides the list of POI names and categories along the recomme
 %Specifically, information about the sequence of POIs in the selected route is provided, including POI names and their categories (e.g. Parks, Entertainment).
 The list is sorted according to the suggested visiting order, and again, the same POI colour is used to match the corresponding POI on the map.
 On top of the list, the system also provides an estimated travel time and total distance of the route. 
-The list box is updated whenever a user select a different route or the system recommends a new route given a query.
+The POI list box is updated whenever a user selects a different route or the system makes a new recommendation. % a new route given a query.
 %The list box also provides the estimated time and distance of the selected route at the top of the list.
-If more than one route are selected, the system displays the information the most recent chosen route.
+If more than one route is selected, the system displays the information of the most recent chosen route.
 
 \textbf{POI feature visualisation}: We further provide a radar chart to analyse the variation between POIs in a single route. 
 For example, in Figure~\ref{fig:radar}, we compare two POIs (\textit{Melbourne Aquarium} and \textit{Queen Victoria Market}) in terms of POI features and their importance in the suggested route. 
