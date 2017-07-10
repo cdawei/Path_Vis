@@ -2,6 +2,19 @@
 \settopmatter{printacmref=false}
 \setcopyright{none}
 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{breqn}
+\usepackage{latexsym}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage{lipsum}
+\usepackage{array}
+\usepackage{color}
+
+\newcommand{\TODO}[1]{\textcolor{red}{\bf{#1}}}
+
 \begin{document}
 
 \title{PathRec: Visual Analysis of Travel Route Recommendations}
@@ -14,6 +27,8 @@
 
 \section{Alternative approaches to trajectory recommendation}
 \label{sec:alternative}
+
+\TODO{Dawei: the section title says {\em approaches} but the text only talks about rankSVM. Do you want to list Markov (refer to CIKM16) and others too? i.e. at the level of describing the table rows in CIKM}
 
 A number of approaches have been proposed to solve the trajectory recommendation problem.
 \citet{ijcai15} formulated an optimisation problem inspired by the travelling salesman problem,
@@ -34,8 +49,12 @@ Lastly, the top-ranked POIs with respect to the given query were taken to form a
 \section{Score normalisation for visualisation}
 \label{sec:scorenorm}
 
+\TODO{Dawei: describe that what the visualizer shows, i.e. scores and not weights. Illustrate using an example.}
+
 %We describe details on how to normalise prediction scores for better visualisation. 
 To better visualise trajectory/POI/transition scores, we perform linear scaling on these scores for each query.
+
+\subsection{Scaling overall trajectory scores}
 Specifically, we scale the trajectory scores for the top 10 suggested routes such that:
 \begin{itemize}
 \item The first trajectory scores 100,
@@ -44,11 +63,21 @@ Specifically, we scale the trajectory scores for the top 10 suggested routes suc
 Further, 
 We share the same scaling parameters as that of trajectory scores for scores of POI features, e.g. popularity, visit duration, category etc.
 
+\subsection{Displaying unary and pairwise scores}
+
 For transition scores, however, 
 we perform another linear scaling instead of sharing the scaling parameters of trajectory scores to achieve better visualisation,
 since many of the transition scores are very small, we scale them into the range [0.1, 1].
 
+
+
 \section{Choices on visualisation paradigms}
+
+\TODO{Dawei: This section is written without a clear logical flow. Suggested structure:
+para1: design considerations - want to break down scores for different points and information sources, shows ranked list rather than single choice, has POI info and route info.\\
+and then use one paragraph to address each consideration. \\
+design consideration: justify using the ben shneiderman mantra \url{http://www.infovis-wiki.net/index.php/Visual_Information-Seeking_Mantra}.\\
+include references: for radar, parrallel coordinates and so on. include an example of the same info visualized in radar and parralell coordinates, discuss why we chose on and not the other. }
 
 %We discuss rationale for choosing visualisation components and possible alternatives. 
 To help users of trajectory recommendation system understand why the suggested routes are recommended,
