@@ -28,78 +28,109 @@
 \section{Alternative approaches to trajectory recommendation}
 \label{sec:alternative}
 
-\TODO{Dawei: the section title says {\em approaches} but the text only talks about rankSVM. Do you want to list Markov (refer to CIKM16) and others too? i.e. at the level of describing the table rows in CIKM}
+%\TODO{Dawei: the section title says {\em approaches} but the text only talks about rankSVM. Do you want to list Markov (refer to CIKM16) and others too? i.e. at the level of describing the table rows in CIKM}
 
 A number of approaches have been proposed to solve the trajectory recommendation problem.
 \citet{ijcai15} formulated an optimisation problem inspired by the travelling salesman problem,
 and \citet{cikm16paper} proposed to learn a RankSVM~\cite{lranksvm} model to rank POIs with respect to a query,
 in particular, 
 the training objective is
-\begin{equation*}
-\resizebox{\linewidth}{!}{$\displaystyle
+\begin{equation}
+\label{eq:ranksvm}
+\resizebox{0.92\linewidth}{!}{$\displaystyle
 \min_{\mathbf{w}} \frac{1}{2} \mathbf{w}^\top \mathbf{w} + C \cdot \sum_{i=1}^n \sum_{(p,p') \in \mathcal{R}(\mathbf{x}^{(i)})}
           \max\left(0, 1 - \mathbf{w}^\top \left(\Phi(\mathbf{x}^{(i)}, p) - \Phi(\mathbf{x}^{(i)}, p') \right) \right)^2,
 $}
-\end{equation*}
+\end{equation}
 where $\mathbf{w}$ denotes the model parameters, $\Phi$ is a query-POI feature mapping, $C > 0$ is a regularisation constant,
 and $\mathcal{R}(\mathbf{x})$ is the set of POI pairs $(p, p')$ such that $p$ is ranked above $p'$,
 e.g. POI $p$ is observed more often than POI $p'$, with respect to query $\mathbf{x}$.
 Lastly, the top-ranked POIs with respect to the given query were taken to form a trajectory.
 
+Instead of ranking POIs, a Markov chain was learned from routes in the travel history~\cite{cikm16paper},
+and recommending a trajectory is achieved with either the classic Viterbi algorithm or 
+an integer linear programming when repeated POI visits are discouraged.
+Further, \citet{cikm16paper} proposed to combine the POI ranks learned by RankSVM~(\ref{eq:ranksvm}) and 
+the transition preferences learned by a Markov chain using a heuristic which traded off between point affinity and transition preference.
+
 \section{Score normalisation for visualisation}
 \label{sec:scorenorm}
 
-\TODO{Dawei: describe that what the visualizer shows, i.e. scores and not weights. Illustrate using an example.}
+%\TODO{Dawei: describe that what the visualizer shows, i.e. scores and not weights. Illustrate using an example.}
+
+We visualise multiple suggested trip by ranking them according to their scores from SSVM, in addition,
+we leverage the linear form of SSVM that score of a trajectory is the sum of point and transition scores in the trip.
+As shown in Figure 2, scores of both POIs and transitions in a trip are visualised in a stacked bar plot,
+which helps users of the system to better understand what contributes to a suggested trip.
+
+To support better visual discrimination, we perform linear scaling on scores of suggested trajectories, scores of POIs and transitions.
 
 %We describe details on how to normalise prediction scores for better visualisation. 
-To better visualise trajectory/POI/transition scores, we perform linear scaling on these scores for each query.
+
+%To better visualise trajectory/POI/transition scores, we perform linear scaling on these scores for each query.
 
 \subsection{Scaling overall trajectory scores}
 Specifically, we scale the trajectory scores for the top 10 suggested routes such that:
 \begin{itemize}
 \item The first trajectory scores 100,
-\item and the last (i.e. 10-th) trajectory scores 10.
+\item and the last (i.e. the 10-th) trajectory scores 10.
 \end{itemize}
-Further, 
-We share the same scaling parameters as that of trajectory scores for scores of POI features, e.g. popularity, visit duration, category etc.
 
 \subsection{Displaying unary and pairwise scores}
+We further scale the POI scores using the same scaling parameters as that of trajectory scores, however, 
+to visualise the transition scores in the stacked bar plot,
+we perform another linear scaling as the scores of POIs and transitions are in quite different range,
+in particular, the transition scores are scaled linearly into the range [0.1, 1].
 
-For transition scores, however, 
-we perform another linear scaling instead of sharing the scaling parameters of trajectory scores to achieve better visualisation,
-since many of the transition scores are very small, we scale them into the range [0.1, 1].
-
+\subsection{Displaying POI features}
+Besides scores of POIs and transitions of a suggested trip, we also visualise the scores for individual 
+POI features (e.g. popularity, visit duration, category) in a radar chart, as shown in Figure 3.
+We perform another linear scaling such that scores of POI features are in the range [1, 10].
 
 
 \section{Choices on visualisation paradigms}
 
-\TODO{Dawei: This section is written without a clear logical flow. Suggested structure:
-para1: design considerations - want to break down scores for different points and information sources, shows ranked list rather than single choice, has POI info and route info.\\
-and then use one paragraph to address each consideration. \\
-design consideration: justify using the ben shneiderman mantra \url{http://www.infovis-wiki.net/index.php/Visual_Information-Seeking_Mantra}.\\
-include references: for radar, parrallel coordinates and so on. include an example of the same info visualized in radar and parralell coordinates, discuss why we chose on and not the other. }
-
 %We discuss rationale for choosing visualisation components and possible alternatives. 
-To help users of trajectory recommendation system understand why the suggested routes are recommended,
-we make full use of the advantage of SSVM that the score of a trajectory, 
-which represents the quality with respect to the given query, 
-can be decomposed into a set of scores corresponding to the features of individual POIs and transitions between adjacent POIs, then it becomes straightforward to visualise these scores using a stacked bar plot,
-which intuitively shows the contribution of each POI in a trajectory.
 
-In addition, the stacked bar plot,
-together with the visualisation of the significance of individual features in each POI in the radar chart,
-also allows users to compare the importance of POIs in different suggested routes.
+% design considerations - want to break down scores for different points and information sources, shows ranked list rather than single choice, has POI info and route info, and then use one paragraph to address each consideration. 
+We want to visualise a ranked list of suggested trips instead of a single choice, 
+further, we would like to break down the score of a trip into the contributions of its unary and pairwise components.
+%
+% design consideration: justify using the ben shneiderman mantra \url{http://www.infovis-wiki.net/index.php/Visual_Information-Seeking_Mantra}.
+%
+Following the Visual Information-Seeking Mantra~\cite{shneiderman1996eyes},
+we made the following design choices for this visualisation system:
+{
+\setlength{\parindent}{0cm}
+\paragraph{\bf Overview first}
+For a given query, as shown in Figure 1, 
+the visualisation system shows the top-ranked trip on a map.
+The other components of the system, as described in Section 3, 
+can display more details of these recommendations after a user zooms in, as described below.
 
-These visualisation enables users to choose the best trajectory among the suggested routes by trading off a number of factors, e.g. popularity, distance etc.
-Compared with classic recommendation system which only provides a score for each suggested item, 
-this approach makes the recommendation more transparent to end-users.
+\paragraph{\bf Zoom and filter}
+The system shows the scores of top-10 suggested trajectories and the scores of the corresponding POIs and transitions in a stacked bar plot,
+as shown in Figure 2.
+Further, a POI list box at the lower left side of the system interface 
+displays the information of POIs including names and categories of the selected trip, as described in Section 3. 
+Lastly, at the lower right side, contributions of individual features of all POIs in the selected trip are compared, 
+and Figure 3 shows an example which compares individual feature scores between two POIs.
 
-Alternatively, in addition to show the ranking of routes, 
-we can also display the ranking of POIs and transitions with respect to the given query, 
-as well as the contributions by all POIs and all transitions in a trajectory.
-For visualising POI features, one can also use parallel coordinates instead of radar chart.
+\paragraph{\bf Details-on-demand}
+The system also support display and compare multiple suggested trajectories on map,
+this is achieved by select the trips at the left side of the stacked bar plot (Figure 2).
+All selected trips will be displayed on the map, which helps user choose the best trip among the multiple recommendations.
+Moreover, comparison of individual features between multiple POIs in a trip is also supported,
+in the radar chart, users can check one or more POIs in the most recent choose trip, 
+the feature scores of all checked POIs will then be displayed and compared, using the same colour as the POI icon on the map.
+}
+
+% include references: for radar, parallel coordinates and so on. include an example of the same info visualized in radar and paralell coordinates, discuss why we chose one and not the other.
+We note that to visualise POI feature contributions, instead of radar chart, parallel coordinates~\cite{parallel_coord} is another viable option,
+although both approaches have their own advantages and drawbacks~\cite{robbins2005creating}.
+
 
 \bibliographystyle{ACM-Reference-Format}
-\bibliography{ref_appendix}
+\bibliography{ref_appendix} 
 
 \end{document}
